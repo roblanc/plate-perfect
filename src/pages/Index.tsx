@@ -1,6 +1,7 @@
 import { CarViewer } from '@/components/CarViewer';
 import { PlateInput } from '@/components/PlateInput';
 import { CustomizationPanel } from '@/components/CustomizationPanel';
+import { CarModelSelector } from '@/components/CarModelSelector';
 import { Car } from 'lucide-react';
 
 const Index = () => {
@@ -24,9 +25,10 @@ const Index = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-140px)]">
-          {/* Left Panel - Plate Input */}
-          <div className="lg:col-span-3 h-full overflow-auto">
+          {/* Left Panel - Plate Input & Model Selector */}
+          <div className="lg:col-span-3 h-full overflow-auto space-y-4">
             <PlateInput />
+            <CarModelSelector />
           </div>
 
           {/* Center Panel - 3D Viewer */}

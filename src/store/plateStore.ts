@@ -2,6 +2,14 @@ import { create } from 'zustand';
 import { PlateState } from '@/types/plate';
 import { validatePlate } from '@/data/countryFormats';
 
+export type CarType = 'hatchback' | 'sedan' | 'suv' | 'wagon' | 'coupe';
+
+export interface CarModel {
+  id: string;
+  name: string;
+  type: CarType;
+}
+
 interface PlateStore extends PlateState {
   setPlateNumber: (plateNumber: string) => void;
   setCountry: (country: string) => void;
@@ -14,7 +22,7 @@ export const usePlateStore = create<PlateStore>((set, get) => ({
   plateNumber: 'B 123 ABC',
   country: 'RO',
   carColor: '#FF0000',
-  carModel: 'sedan',
+  carModel: 'vw-golf-4',
   isValid: true,
   errorMessage: undefined,
 

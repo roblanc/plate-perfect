@@ -1,9 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { usePlateStore } from '@/store/plateStore';
-import { Download, Camera } from 'lucide-react';
+import { Download, Camera, Palette } from 'lucide-react';
 import { toast } from 'sonner';
+import { HexColorPicker } from 'react-colorful';
+import { useState } from 'react';
 
 const carColors = [
   { name: 'Red', value: '#FF0000' },
@@ -18,6 +21,20 @@ const carColors = [
 
 export const CustomizationPanel = () => {
   const { carColor, setCarColor } = usePlateStore();
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [hexInput, setHexInput] = useState(carColor);
+
+  const handleColorChange = (color: string) => {
+    setCarColor(color);
+    setHexInput(color);
+  };
+
+  const handleHexInputChange = (value: string) => {
+    setHexInput(value);
+    if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+      setCarColor(value);
+    }
+  };
 
   const handleScreenshot = () => {
     const canvas = document.querySelector('canvas');
@@ -51,17 +68,20 @@ export const CustomizationPanel = () => {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Customization</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Palette className="h-5 w-5" />
+          Customization
+        </CardTitle>
         <CardDescription>Customize your car appearance</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-3">
-          <Label>Car Color</Label>
+          <Label>Quick Colors</Label>
           <div className="grid grid-cols-4 gap-2">
             {carColors.map((color) => (
               <button
                 key={color.value}
-                onClick={() => setCarColor(color.value)}
+                onClick={() => handleColorChange(color.value)}
                 className={`
                   h-12 rounded-md border-2 transition-all
                   ${carColor === color.value ? 'border-primary ring-2 ring-primary/20 scale-105' : 'border-border hover:border-primary/50'}
@@ -76,6 +96,38 @@ export const CustomizationPanel = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="space-y-3">
+          <Label>Custom Color</Label>
+          <Button
+            variant="outline"
+            className="w-full justify-start"
+            onClick={() => setShowColorPicker(!showColorPicker)}
+          >
+            <div
+              className="w-6 h-6 rounded border-2 border-border mr-2"
+              style={{ backgroundColor: carColor }}
+            />
+            {showColorPicker ? 'Hide' : 'Show'} Color Picker
+          </Button>
+          
+          {showColorPicker && (
+            <div className="space-y-3 p-4 border rounded-lg bg-card">
+              <HexColorPicker color={carColor} onChange={handleColorChange} className="w-full" />
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <Label className="text-xs">Hex Code</Label>
+                  <Input
+                    value={hexInput}
+                    onChange={(e) => handleHexInputChange(e.target.value)}
+                    placeholder="#FF0000"
+                    className="font-mono"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="pt-4 border-t space-y-2">
