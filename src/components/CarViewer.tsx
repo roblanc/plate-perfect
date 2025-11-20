@@ -17,14 +17,14 @@ export const CarViewer = () => {
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 6}
         />
-        
+
         {/* NFS-style Lighting Setup */}
-        <ambientLight intensity={0.3} />
-        
+        <ambientLight intensity={0.4} />
+
         {/* Key light - main showroom light */}
         <directionalLight
-          position={[8, 12, 8]}
-          intensity={2}
+          position={[10, 15, 10]}
+          intensity={2.5}
           castShadow
           shadow-mapSize-width={4096}
           shadow-mapSize-height={4096}
@@ -34,26 +34,27 @@ export const CarViewer = () => {
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        
-        {/* Fill lights */}
-        <directionalLight position={[-8, 8, -8]} intensity={0.8} color="#4466ff" />
-        <directionalLight position={[0, 5, -10]} intensity={0.6} color="#ffffff" />
-        
-        {/* Rim lights for edge highlights */}
-        <spotLight position={[5, 1, -5]} intensity={1.2} angle={0.3} penumbra={0.5} color="#88ccff" />
-        <spotLight position={[-5, 1, -5]} intensity={1.2} angle={0.3} penumbra={0.5} color="#ff8844" />
-        
-        {/* Environment for reflections - studio preset for showroom look */}
+
+        {/* Fill lights for NFS-style dramatic lighting */}
+        <directionalLight position={[-10, 10, -10]} intensity={1.2} color="#5577ff" />
+        <directionalLight position={[0, 8, -12]} intensity={0.8} color="#ffffff" />
+
+        {/* Rim lights for edge highlights - signature NFS look */}
+        <spotLight position={[6, 2, -6]} intensity={2.0} angle={0.4} penumbra={0.6} color="#66ccff" />
+        <spotLight position={[-6, 2, -6]} intensity={2.0} angle={0.4} penumbra={0.6} color="#ff6644" />
+        <spotLight position={[0, 5, 8]} intensity={1.5} angle={0.5} penumbra={0.5} color="#ffffff" />
+
+        {/* Environment for reflections - city preset for that NFS urban showroom vibe */}
         <Environment preset="city" />
-        
-        {/* Showroom Ground - glossy reflective floor */}
+
+        {/* Showroom Ground - ultra glossy reflective floor like NFS */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
           <planeGeometry args={[100, 100]} />
-          <meshStandardMaterial 
-            color="#0a0a15" 
-            roughness={0.15} 
-            metalness={0.9}
-            envMapIntensity={1.5}
+          <meshStandardMaterial
+            color="#050508"
+            roughness={0.05}
+            metalness={0.95}
+            envMapIntensity={2.5}
           />
         </mesh>
 

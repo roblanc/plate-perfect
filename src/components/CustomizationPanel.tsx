@@ -21,18 +21,25 @@ const carColors = [
 
 export const CustomizationPanel = () => {
   const { carColor, setCarColor } = usePlateStore();
-  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(true);
   const [hexInput, setHexInput] = useState(carColor);
 
   const handleColorChange = (color: string) => {
     setCarColor(color);
-    setHexInput(color);
+    setHexInput(color.toUpperCase());
   };
 
   const handleHexInputChange = (value: string) => {
-    setHexInput(value);
-    if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
-      setCarColor(value);
+    // Allow typing without the # prefix
+    let formattedValue = value.trim();
+    if (!formattedValue.startsWith('#')) {
+      formattedValue = '#' + formattedValue;
+    }
+    setHexInput(formattedValue.toUpperCase());
+    
+    // Validate and apply if valid
+    if (/^#[0-9A-Fa-f]{6}$/.test(formattedValue)) {
+      setCarColor(formattedValue);
     }
   };
 

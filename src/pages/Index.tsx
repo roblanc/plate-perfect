@@ -1,8 +1,8 @@
 import { CarViewer } from '@/components/CarViewer';
 import { PlateInput } from '@/components/PlateInput';
 import { CustomizationPanel } from '@/components/CustomizationPanel';
-import { CarModelSelector } from '@/components/CarModelSelector';
 import { Car } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Index = () => {
   return (
@@ -24,21 +24,26 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-140px)]">
-          {/* Left Panel - Plate Input & Model Selector */}
-          <div className="lg:col-span-3 h-full overflow-auto space-y-4">
-            <PlateInput />
-            <CarModelSelector />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+          {/* Left Panel - Tabs for Plate Input & Customization */}
+          <div className="lg:col-span-4">
+            <Tabs defaultValue="plate-details">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="plate-details">Plate Details</TabsTrigger>
+                <TabsTrigger value="appearance">Appearance</TabsTrigger>
+              </TabsList>
+              <TabsContent value="plate-details">
+                <PlateInput />
+              </TabsContent>
+              <TabsContent value="appearance">
+                <CustomizationPanel />
+              </TabsContent>
+            </Tabs>
           </div>
 
-          {/* Center Panel - 3D Viewer */}
-          <div className="lg:col-span-6 h-full">
+          {/* Right Panel - 3D Viewer */}
+          <div className="lg:col-span-8 h-full">
             <CarViewer />
-          </div>
-
-          {/* Right Panel - Customization */}
-          <div className="lg:col-span-3 h-full overflow-auto">
-            <CustomizationPanel />
           </div>
         </div>
       </main>
