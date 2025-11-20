@@ -8,6 +8,8 @@ export const carModelPaths: Record<string, string> = {
     // 'vw-polo': '/models/vw-polo.glb',
     // 'vw-tiguan': '/models/vw-tiguan.glb',
 
+    'vw-golf-gti-2001': '/models/volkswagen_golf_gti_2001.glb',
+
     // Audi Models
     // 'audi-a3': '/models/audi-a3.glb',
 

@@ -2,6 +2,7 @@ import { CarModel } from '@/store/plateStore';
 
 export const carModels: CarModel[] = [
   // Volkswagen
+  { id: 'vw-golf-gti-2001', name: 'VW Golf GTI 2001', type: 'hatchback' },
   { id: 'vw-golf-4', name: 'VW Golf 4', type: 'hatchback' },
   { id: 'vw-golf-5', name: 'VW Golf 5', type: 'hatchback' },
   { id: 'vw-golf-6', name: 'VW Golf 6', type: 'hatchback' },

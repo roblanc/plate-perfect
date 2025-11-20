@@ -1,0 +1,13 @@
+# render.yaml
+# Configuration for deploying the plate-perfect project to Render.com
+
+services:
+  # A static site for the React frontend
+  - type: static
+    name: plate-perfect-frontend
+    # The branch to deploy from
+    branch: main # Or your default branch (e.g., master)
+    # The command to build the static site
+    buildCommand: bun install && bun run build
+    # The directory where the built static files are located
+    publishDir: dist
